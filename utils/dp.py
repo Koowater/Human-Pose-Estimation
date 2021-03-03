@@ -73,23 +73,10 @@ class Dataset():
             img_shape = img.shape
             img = tf.image.resize(img, [256, 256])
 
-            
-            batchsize = config['train']['batchsize']
-            batchnum = config['train']['{}_iters'.format(phase)]
-            loader = loaders[phase].__iter__()
-            for i in range(batchnum):
-                try:
-                    imgs, heatmaps = next(loader)
-                except StopIteration:
-                    # to avoid no data provided by dataloader
-                    loader = loaders[phase].__iter__()
-                    imgs, heatmaps = next(loader)
-                yield {
-                    'imgs': imgs, #cropped and augmented
-                    'heatmaps': heatmaps, #based on keypoints. 0 if not in img for joint
-                }
+            # batchsize = config['train']['batchsize']
+            # batchnum = config['train']['{}_iters'.format(phase)]
 
-            yield (tf.reshape(img, [1, 256, 256, 3]) / 255, hm)
+            yield imgs, heatmaps
 
     def loadImage(self, idx):
         ds = self.ds
