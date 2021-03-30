@@ -108,6 +108,11 @@ class HourGlass(model):
         return self._call(self.depth, x)
 
 
+# Loss function
+def HeatmapLoss(y_true, y_pred):
+    l = ((y_pred - y_true)**2)
+    l = tf.reduce_mean(tf.reduce_mean(tf.reduce_mean(l, 3), 2), 1)
+    return l ## l of dim bsize
 
 def NME(y_true, y_pred):
     return tf.reduce_mean(tf.keras.losses.MSE(y_true, y_pred))
