@@ -17,7 +17,7 @@ import cv2
 
 class MPII:
     def __init__(self, annot):
-        print('loading data:', 'annot')
+        print('loading data:', annot)
         tic = time.time()
 
         ds_f = h5py.File(os.path.join(annot_dir, annot), 'r')
